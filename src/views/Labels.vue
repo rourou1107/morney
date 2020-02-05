@@ -1,24 +1,14 @@
 <template>
-    <div class="nav-wrapper">
-        <div class="content">labels</div>
-        <Nav />
-    </div>
+    <layout>labels</layout>
 </template>
 
 <script lang="ts">
+    import Layout from "@/components/Layout.vue";
     export default {
-        name: "Labels"
+        name: "Labels",
+        components: {Layout}
     }
 </script>
 
 <style lang="scss" scoped>
-.nav-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    .content {
-        flex: 1;
-        overflow: auto;
-    }
-}
 </style>
