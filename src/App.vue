@@ -10,16 +10,16 @@ export default {
 }
 </script>
 <style lang="scss">
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    line-height: 1;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
+    @import '~@/assets/styles/reset.scss';
+    /*变量的css需要在使用的每个文件内单独引入*/
+    @import "~@/assets/styles/helper.scss";
+    /*下为影响全局的css*/
+    #app {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1;
+        font-size: 16px;
+        font-family: $font-hei;
+        color: #333;
+    }
 </style>
