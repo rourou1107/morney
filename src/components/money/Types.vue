@@ -5,24 +5,37 @@
     </div>
 </template>
 
-<script>
-    // js 方式 script 不需要加 lang="ts"
-    export default {
-        name: "Types",
-        data() {
-            return {
-                type: '-' // '-' 代表支出 '+' 代表收入
+<script lang="ts">
+    import Vue from 'vue';
+    import {Component} from "vue-property-decorator";
+    @Component // 解释下面的ts代码变为为vue
+    export default class Types extends Vue{
+        type = '-'; // '-' 代表支出 '+' 代表收入
+        selectedType(type: string) {
+            if(type !== '-' && type !== '+') {
+                throw new Error('type unknown')
             }
-        },
-        methods: {
-            selectedType(type) {
-                if(type !== '+' && type !== '-') { // 确保 type 只能是 + / -
-                    throw new Error('type unknown')
-                }
-                this.type = type
-            }
+            this.type = type
         }
     }
+
+    // js 方式 script 不需要加 lang="ts"
+    // export default {
+    //     name: "Types",
+    //     data() {
+    //         return {
+    //             type: '-' // '-' 代表支出 '+' 代表收入
+    //         }
+    //     },
+    //     methods: {
+    //         selectedType(type) {
+    //             if(type !== '+' && type !== '-') { // 确保 type 只能是 + / -
+    //                 throw new Error('type unknown')
+    //             }
+    //             this.type = type
+    //         }
+    //     }
+    // }
 </script>
 
 <style lang="scss" scoped>
