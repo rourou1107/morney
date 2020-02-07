@@ -26,8 +26,8 @@ export default {
 <style lang="scss" scoped>
     @import '~@/assets/styles/helper.scss';
     nav {
+        @extend %outerShadow;
         display: flex;
-        box-shadow: 0 0 3px $taoBao;
         .item {
             display: flex;
             flex-direction: column;
