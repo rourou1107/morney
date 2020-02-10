@@ -7,15 +7,17 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component} from "vue-property-decorator";
+    import {Component, Prop} from 'vue-property-decorator';
+
     @Component // 解释下面的ts代码变为为vue
-    export default class Types extends Vue{
+    export default class Types extends Vue {
+        @Prop(Number) xxx: number | undefined;
         type = '-'; // '-' 代表支出 '+' 代表收入
         selectedType(type: string) {
-            if(type !== '-' && type !== '+') {
-                throw new Error('type unknown')
+            if (type !== '-' && type !== '+') {
+                throw new Error('type unknown');
             }
-            this.type = type
+            this.type = type;
         }
     }
 
@@ -43,12 +45,15 @@
         background: #c4c4c4;
         display: flex;
         font-size: 24px;
+
         div {
             width: 50%;
             padding: 20px 0;
             text-align: center;
+
             &.selected {
                 position: relative;
+
                 &::after {
                     position: absolute;
                     bottom: 0;
