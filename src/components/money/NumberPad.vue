@@ -13,7 +13,7 @@
             <button @click="inputCount">7</button>
             <button @click="inputCount">8</button>
             <button @click="inputCount">9</button>
-            <button class="ok">OK</button>
+            <button @click="ok" class="ok">OK</button>
             <button @click="inputCount" class="zero">0</button>
             <button @click="inputCount">.</button>
         </div>
@@ -64,6 +64,10 @@
 
         clear() {
             this.outPut = '0';
+        }
+
+        ok() {
+
         }
     }
 </script>
