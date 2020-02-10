@@ -1,28 +1,51 @@
 <template>
     <div class="tags">
         <div class="new">
-            <button>新增标签</button>
+            <button @click="create">新增标签</button>
         </div>
         <ul class="current">
-            <li>衣</li>
-            <li>食</li>
-            <li>住</li>
-            <li>行</li>
-            <li>衣</li>
-            <li>食</li>
-            <li>住</li>
-            <li>行</li>
-            <li>衣</li>
-            <li>食</li>
-            <li>住</li>
-            <li>行</li>
+            <li
+                    :class="selectTags.indexOf(tag) >= 0 && 'selected'"
+                    v-for="(tag, index) in dataSource"
+                    :key="index"
+                    @click="toggle(tag)"
+            >
+                {{tag}}
+            </li>
         </ul>
     </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name: "Tags"
+    import Vue from 'vue';
+    import {Component, Prop} from 'vue-property-decorator';
+
+    @Component
+    export default class Tags extends Vue {
+        @Prop(Array) dataSource: string[] | undefined;
+        selectTags: string[] = [];
+
+        // 切换标签选中事件
+        toggle(tag: string) {
+            let index = this.selectTags.indexOf(tag);
+            if (index === -1) {
+                this.selectTags.push(tag);
+            } else {
+                this.selectTags.splice(index, 1);
+            }
+        }
+
+        create() {
+            let name = window.prompt('请输入标签名');
+            if (name === '') {
+                return;
+            } else {
+                if(this.dataSource) {
+                    // 不要直接改props
+                    this.$emit('update:dataSource', [...this.dataSource, name]);
+                }
+            }
+        }
     }
 </script>
 
@@ -33,23 +56,33 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column-reverse;
+
         .current {
             display: flex;
             flex-wrap: wrap;
+
             li {
+                $bgc: #d9d9d9;
                 $h: 24px;
                 height: $h;
                 line-height: $h;
                 border-radius: $h/2;
                 padding: 0 16px;
-                background: #d9d9d9;
+                background: $bgc;
                 margin-right: 10px;
                 margin-bottom: 15px;
+
+                &.selected {
+                    background: darken($bgc, 30%);
+                    color: #ffffff;
+                }
             }
         }
+
         .new {
             padding-top: 16px;
             color: #999999;
+
             button {
                 padding: 0 5px;
                 border-bottom: 1px solid;
