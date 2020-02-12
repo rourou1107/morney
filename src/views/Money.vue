@@ -3,7 +3,7 @@
         {{record}}
         <tags :data-source.sync="tags" @update:value="onUpdateTags"/>
         <notes @update:value="record.notes=$event"/>
-        <types :value="record.types" @update:value="record.types=$event"/>
+        <types :value.sync="record.types" />
         <number-pad @update:value="record.amount=$event"/>
     </layout>
 </template>
@@ -36,7 +36,7 @@
             types: '-',
             amount: 0
         }
-        onUpdateTags(value: string[]) {
+        onUpdateTags(value: string[]) { // 更新被选择标签
             this.record.tags = value;
         }
     }
