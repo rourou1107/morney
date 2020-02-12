@@ -1,7 +1,7 @@
 <template>
     <div class="types">
-        <div :class=" type==='-'&&'selected'" @click="selectedType('-')">支出</div>
-        <div :class=" type==='+'&&'selected'" @click="selectedType('+')">收入</div>
+        <div :class=" value==='-'&&'selected'" @click="selectedType('-')">支出</div>
+        <div :class=" value==='+'&&'selected'" @click="selectedType('+')">收入</div>
     </div>
 </template>
 
@@ -11,13 +11,13 @@
 
     @Component // 解释下面的ts代码变为为vue
     export default class Types extends Vue {
-        @Prop(Number) xxx: number | undefined;
-        type = '-'; // '-' 代表支出 '+' 代表收入
+        @Prop(String) value!: string;  // '-' 代表支出 '+' 代表收入。外部传进来比较好控制
+
         selectedType(type: string) {
             if (type !== '-' && type !== '+') {
                 throw new Error('type unknown');
             }
-            this.type = type;
+            this.$emit('update:value', type);
         }
     }
 

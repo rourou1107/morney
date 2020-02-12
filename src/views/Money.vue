@@ -1,9 +1,10 @@
 <template>
     <layout class-prefix="layout">
-        <tags :data-source.sync="tags"/>
-        <notes/>
-        <types/>
-        <number-pad/>
+        {{record}}
+        <tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+        <notes @update:value="record.notes=$event"/>
+        <types :value="record.types" @update:value="record.types=$event"/>
+        <number-pad @update:value="record.amount=$event"/>
     </layout>
 </template>
 
@@ -15,13 +16,29 @@
     import NumberPad from '@/components/money/NumberPad.vue';
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
+
+    type Record = {
+        tags: string[],
+        notes: string,
+        types: string,
+        amount: number
+    }
     @Component({
         components: {
             Layout, Tags, Notes, Types, NumberPad
         }
     })
     export default class Money extends Vue {
-        tags: string[] = ['衣', '食', '住', '行']
+        tags: string[] = ['衣', '食', '住', '行'];
+        record: Record = { // 最后会存在数据库里。LocalStorage
+            tags: [],
+            notes: '',
+            types: '-',
+            amount: 0
+        }
+        onUpdateTags(value: string[]) {
+            this.record.tags = value;
+        }
     }
 </script>
 

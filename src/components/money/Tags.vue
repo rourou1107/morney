@@ -33,6 +33,7 @@
             } else {
                 this.selectTags.splice(index, 1);
             }
+            this.$emit('update:value', this.selectTags);
         }
 
         create() {
@@ -40,7 +41,7 @@
             if (name === '') {
                 return;
             } else {
-                if(this.dataSource) {
+                if (this.dataSource) {
                     // 不要直接改props
                     this.$emit('update:dataSource', [...this.dataSource, name]);
                 }
@@ -60,6 +61,7 @@
         .current {
             display: flex;
             flex-wrap: wrap;
+            /*flex-grow: 1;*/
 
             li {
                 $bgc: #d9d9d9;
