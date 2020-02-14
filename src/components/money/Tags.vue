@@ -5,12 +5,12 @@
         </div>
         <ul class="current">
             <li
-                    :class="selectTags.indexOf(tag) >= 0 && 'selected'"
-                    v-for="(tag, index) in dataSource"
-                    :key="index"
-                    @click="toggle(tag)"
+                    :class="selectTags.indexOf(tag.name) >= 0 && 'selected'"
+                    v-for="tag in dataSource"
+                    :key="tag.id"
+                    @click="toggle(tag.name)"
             >
-                {{tag}}
+                {{tag.name}}
             </li>
         </ul>
     </div>
@@ -38,7 +38,7 @@
 
         create() {
             let name = window.prompt('请输入标签名');
-            if (name === ''|| name === null) {
+            if (name === '' || name === null) {
                 return;
             } else {
                 if (this.dataSource) {
@@ -58,9 +58,11 @@
         display: flex;
         flex-direction: column-reverse;
         background: #ffffff;
+
         .current {
             display: flex;
             flex-wrap: wrap;
+
             li {
                 $bgc: #d9d9d9;
                 $h: 24px;
