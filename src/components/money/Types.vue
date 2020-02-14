@@ -7,11 +7,11 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Prop} from 'vue-property-decorator';
+    import {Component, Prop, Watch} from 'vue-property-decorator';
 
     @Component // 解释下面的ts代码变为为vue
     export default class Types extends Vue {
-        @Prop(String) value!: string;  // '-' 代表支出 '+' 代表收入。外部传进来比较好控制
+        @Prop(String) readonly value!: string;  // '-' 代表支出 '+' 代表收入。外部传进来比较好控制
 
         selectedType(type: string) {
             if (type !== '-' && type !== '+') {

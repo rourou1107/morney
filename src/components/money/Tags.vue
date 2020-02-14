@@ -38,7 +38,7 @@
 
         create() {
             let name = window.prompt('请输入标签名');
-            if (name === '') {
+            if (name === ''|| name === null) {
                 return;
             } else {
                 if (this.dataSource) {

@@ -68,6 +68,7 @@
 
         ok() {
             this.$emit('update:value', this.outPut);
+            this.$emit('submit'); // 通知更新数据库
             this.outPut = '0';
         }
     }
