@@ -1,10 +1,15 @@
 <template>
     <layout>
         <ul class="tags">
-            <li v-for="tag in tags" :key="tag">
-                <span>{{tag}}</span>
+            <router-link
+                    tag="li"
+                    v-for="tag in tags"
+                    :key="tag.id"
+                    :to="`/labels/edit/${tag.id}`"
+            >
+                <span>{{tag.name}}</span>
                 <Icon name="right"></Icon>
-            </li>
+            </router-link>
         </ul>
         <div class="createTag-wrapper">
             <button class="createTag" @click="createTag">新建标签</button>
@@ -16,18 +21,18 @@
     import Vue from 'vue';
     import Layout from '@/components/Layout.vue';
     import {Component} from 'vue-property-decorator';
-    import tagList from '@/models/tagListModel';
-    tagList.fetch();
+    import tagListModel from '@/models/tagListModel';
+    tagListModel.fetch();
     @Component({
         components: {Layout}
     })
     export default class Label extends Vue {
-        tags = tagList.data;
+        tags = tagListModel.data;
 
         createTag() {
             let name = window.prompt('请输入标签名');
             if (name) {
-                let success = tagList.create(name);
+                let success = tagListModel.create(name);
                 if (success === 'success') {
                     window.alert('创建成功');
                 } else if (success === 'duplication') {
