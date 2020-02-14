@@ -14,6 +14,9 @@ export default {
     /*变量的css需要在使用的每个文件内单独引入*/
     @import "~@/assets/styles/helper.scss";
     /*下为影响全局的css*/
+    body {
+        background: #e5e5e5;
+    }
     #app {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
