@@ -8,26 +8,26 @@
 </template>
 
 <script lang="ts">
+    import Vue from 'vue';
     import Layout from '@/components/Layout.vue';
     import Tags from '@/components/money/Tags.vue';
     import Notes from '@/components/money/Notes.vue';
     import Types from '@/components/money/Types.vue';
     import NumberPad from '@/components/money/NumberPad.vue';
-    import model from '@/model.ts';
-    import Vue from 'vue';
+    import recordListModel from '@/models/recordListModel';
+    import tagList from '@/models/tagListModel';
     import {Component, Watch} from 'vue-property-decorator';
 
-
     // 从localStorage取出之前的值
-    const recordList = model.fetch();
-
+    const recordList = recordListModel.fetch();
+    tagList.fetch();
     @Component({
         components: {
             Layout, Tags, Notes, Types, NumberPad
         }
     })
     export default class Money extends Vue {
-        tags: string[] = ['衣', '食', '住', '行'];
+        tags: string[] = tagList.data;
         record: RecordItem = { // 最后会存在数据库里。LocalStorage
             tags: [],
             notes: '',
@@ -41,14 +41,14 @@
         }
 
         saveRecord() {
-            let item: RecordItem = model.clone(this.record);
+            let item: RecordItem = recordListModel.clone(this.record);
             item.createAt = new Date();
             this.recordList.push(item);
         }
 
         @Watch('recordList')
         onRecordListChange() { // 只要 recordList 变, 我就更新 localStorage
-            model.save(this.recordList);
+            recordListModel.save(this.recordList);
         }
     }
 </script>

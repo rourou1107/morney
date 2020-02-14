@@ -85,7 +85,7 @@
             padding: 20px 16px;
             font-size: 36px;
             border: 1px solid #ccc;
-
+            background: #ffffff;
         }
 
         .buttons {

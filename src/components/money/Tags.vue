@@ -57,12 +57,10 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column-reverse;
-
+        background: #ffffff;
         .current {
             display: flex;
             flex-wrap: wrap;
-            /*flex-grow: 1;*/
-
             li {
                 $bgc: #d9d9d9;
                 $h: 24px;
