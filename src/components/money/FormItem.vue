@@ -1,9 +1,9 @@
 <template>
     <div class="notes">
         <label>
-            <span class="name">备注</span>
+            <span class="name">{{formItem}}</span>
             <input type="text"
-                   placeholder="请在这里添加备注"
+                   :placeholder="placeholder"
                    v-model="value"
             />
         </label>
@@ -12,10 +12,12 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Watch} from 'vue-property-decorator';
+    import {Component, Prop, Watch} from 'vue-property-decorator';
 
     @Component
-    export default class Notes extends Vue {
+    export default class FormItem extends Vue {
+        @Prop({required: true}) formItem!: string;
+        @Prop() placeholder?: string
         value: string = '';
 
         @Watch('value')
