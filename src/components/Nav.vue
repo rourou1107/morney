@@ -28,6 +28,7 @@ export default {
     nav {
         @extend %outerShadow;
         display: flex;
+        background: #ffffff;
         .item {
             display: flex;
             flex-direction: column;

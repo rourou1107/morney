@@ -27,7 +27,7 @@
         }
     })
     export default class Money extends Vue {
-        tags: string[] = tagList.data;
+        tags = tagList.data;
         record: RecordItem = { // 最后会存在数据库里。LocalStorage
             tags: [],
             notes: '',
