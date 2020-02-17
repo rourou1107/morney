@@ -1,10 +1,12 @@
 <template>
     <layout class-prefix="layout">
         <tags :data-source.sync="tags" @update:value="onUpdateTags"/>
-        <form-item
-                form-item="备注"
-                placeholder="请输入备注内容"
-                @update:value="record.notes=$event"/>
+        <div class="form-wrapper">
+            <form-item
+                    form-item="备注"
+                    placeholder="请输入备注内容"
+                    @update:value="record.notes=$event"/>
+        </div>
         <types :value.sync="record.types"/>
         <number-pad @update:value="record.amount=$event" @submit="saveRecord"/>
     </layout>
@@ -64,4 +66,7 @@
 </style>
 
 <style lang="scss" scoped>
+    .form-wrapper {
+        padding: 12px 0;
+    }
 </style>

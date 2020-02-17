@@ -17,7 +17,7 @@
     @Component
     export default class FormItem extends Vue {
         @Prop({required: true}) formItem!: string;
-        @Prop() placeholder?: string
+        @Prop() placeholder?: string;
         value: string = '';
 
         @Watch('value')
@@ -30,7 +30,6 @@
 <style lang="scss" scoped>
     .notes {
         padding-left: 16px;
-        background: #f5f5f5;
         font-size: 14px;
 
         label {
@@ -42,7 +41,7 @@
             }
 
             input {
-                height: 56px;
+                height: 40px;
                 flex-grow: 1;
             }
         }
