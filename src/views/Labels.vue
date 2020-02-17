@@ -12,7 +12,7 @@
             </router-link>
         </ul>
         <div class="button-wrapper">
-            <Button>新建标签</Button>
+            <Button @click="createTag">新建标签</Button>
         </div>
     </layout>
 </template>
