@@ -46,14 +46,7 @@
         }
 
         saveRecord() {
-            let item: RecordItem = recordListModel.clone(this.record);
-            item.createAt = new Date();
-            this.recordList.push(item);
-        }
-
-        @Watch('recordList')
-        onRecordListChange() { // 只要 recordList 变, 我就更新 localStorage
-            recordListModel.save(this.recordList);
+            recordListModel.create(this.record);
         }
     }
 </script>
