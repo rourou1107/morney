@@ -1,3 +1,5 @@
+import createId from '@/lib/createId';
+
 const localStorageKey = 'tagList';
 type data = {
     id: string,
@@ -19,7 +21,8 @@ const tagList: tagList = {
         // data --- [{id: xxx, name: xxx}]
         let names = this.data.map(item => item.name);
         if (names.indexOf(name) === -1) {
-            this.data.push({id: name, name: name});
+            let id = createId().toString();
+            this.data.push({id, name});
             this.save();
             return 'success';
         } else {
