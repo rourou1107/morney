@@ -20,19 +20,19 @@
     import Types from '@/components/money/Types.vue';
     import NumberPad from '@/components/money/NumberPad.vue';
     import recordListModel from '@/models/recordListModel';
-    import tagList from '@/models/tagListModel';
+    import tagListModel from '@/models/tagListModel';
     import {Component, Watch} from 'vue-property-decorator';
 
     // 从localStorage取出之前的值
     const recordList = recordListModel.fetch();
-    tagList.fetch();
+    const tagList = tagListModel.fetch();
     @Component({
         components: {
             Layout, Tags, FormItem: FormItem, Types, NumberPad
         }
     })
     export default class Money extends Vue {
-        tags = tagList.data;
+        tags = tagList;
         record: RecordItem = { // 最后会存在数据库里。LocalStorage
             tags: [],
             notes: '',

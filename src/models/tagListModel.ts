@@ -9,9 +9,11 @@ type tagList = {
     data: data[],
     fetch: () => data[],
     create: (name: string) => 'success' | 'duplication',
+    update: (id: string, name: string) => 'success' | 'duplication' | 'not found',
+    remove: (id: string) => boolean
     save: () => void
 }
-const tagList: tagList = {
+const tagListModel: tagList = {
     data: [],
     fetch: function () { // 取
         this.data = JSON.parse(window.localStorage.getItem(localStorageKey) || '[]');
@@ -29,8 +31,41 @@ const tagList: tagList = {
             return 'duplication';
         }
     },
+    update(id, name) {
+        const idList = this.data.map(item => item.id);
+        // 找到localStorage里面的id为这个的数据
+        if (idList.indexOf(id) > -1) {
+            const nameList = this.data.map(item => item.name);
+            // 判断修改后的name是否重复
+            if (nameList.indexOf(name) > -1) {
+                return 'duplication';
+            } else {
+                for (let i = 0; i < this.data.length; i++) {
+                    if (this.data[i].id === id) {
+                        this.data[i].name = name;
+                        console.log(this.data);
+                        this.save();
+                        return 'success';
+                    }
+                }
+            }
+        }
+        return 'not found';
+    },
+    remove(id) {
+        let index = -1;
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+        this.data.splice(index, 1);
+        this.save();
+        return true;
+    },
     save() { // 存
         window.localStorage.setItem(localStorageKey, JSON.stringify(this.data));
     }
 };
-export default tagList;
+export default tagListModel;
