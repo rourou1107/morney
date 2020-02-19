@@ -25,14 +25,13 @@
 
     // 从localStorage取出之前的值
     const recordList = recordListModel.fetch();
-    const tagList = tagListModel.fetch();
     @Component({
         components: {
             Layout, Tags, FormItem: FormItem, Types, NumberPad
         }
     })
     export default class Money extends Vue {
-        tags = tagList;
+        tags = window.tagList;
         record: RecordItem = { // 最后会存在数据库里。LocalStorage
             tags: [],
             notes: '',

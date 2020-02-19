@@ -23,12 +23,12 @@
     import {Component} from 'vue-property-decorator';
     import tagListModel from '@/models/tagListModel';
     import Button from '@/components/Button.vue';
-    tagListModel.fetch();
+
     @Component({
         components: {Button, Layout}
     })
     export default class Label extends Vue {
-        tags = tagListModel.data;
+        tags = window.tagList;
 
         createTag() {
             let name = window.prompt('请输入标签名');
@@ -48,6 +48,7 @@
     .tags {
         padding-left: 16px;
         background: #ffffff;
+
         li {
             display: flex;
             justify-content: space-between;
@@ -64,6 +65,7 @@
             }
         }
     }
+
     .button-wrapper {
         text-align: center;
         margin-top: 44px;
