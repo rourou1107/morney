@@ -6,11 +6,17 @@ import store from './store';
 import Nav from '@/components/Nav.vue';
 import Icon from '@/components/Icon.vue';
 import tagListModel from '@/models/tagListModel';
+import recordListModel from '@/models/recordListModel';
 
 
 Vue.config.productionTip = false;
 Vue.component('Nav', Nav);
 Vue.component('Icon', Icon);
+
+
+// recordListModel
+window.recordList = recordListModel.fetch();
+
 
 // tagListModel
 // 将数据统一获取, 其余页面直接使用这里获取的数据即可
@@ -32,6 +38,7 @@ window.updateTag = (id, value) => {
 window.findTag = function (id) {
     return this.tagList.filter(tag => tag.id === id)[0];
 };
+
 
 new Vue({
     router,

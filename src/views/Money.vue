@@ -22,9 +22,6 @@
     import recordListModel from '@/models/recordListModel';
     import {Component} from 'vue-property-decorator';
 
-    // 从localStorage取出之前的值
-    const recordList = recordListModel.fetch();
-
     @Component({
         components: {
             Layout, Tags, FormItem: FormItem, Types, NumberPad
@@ -38,7 +35,7 @@
             types: '-',
             amount: 0,
         };
-        recordList: RecordItem[] = recordList;
+        recordList: RecordItem[] = window.recordList;
 
         onUpdateTags(value: string[]) { // 更新被选择标签
             this.record.tags = value;
