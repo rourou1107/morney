@@ -34,7 +34,7 @@
 
         created() {
             const id = this.$route.params.id;
-            const tags = tagListModel.fetch();
+            const tags = window.tagList;
             const tag = tags.filter(tag => tag.id === id)[0];
             if (tag) {
                 this.tag = tag;
@@ -52,7 +52,7 @@
 
         remove() {
             if (this.tag) {
-                tagListModel.remove(this.tag.id);
+                window.removeTag(this.tag)
                 this.$router.back();
             }
         }

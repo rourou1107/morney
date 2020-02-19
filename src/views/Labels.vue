@@ -21,7 +21,6 @@
     import Vue from 'vue';
     import Layout from '@/components/Layout.vue';
     import {Component} from 'vue-property-decorator';
-    import tagListModel from '@/models/tagListModel';
     import Button from '@/components/Button.vue';
 
     @Component({
@@ -29,6 +28,7 @@
     })
     export default class Label extends Vue {
         tags = window.tagList;
+
         createTag() {
             let name = window.prompt('请输入标签名');
             if (name) {

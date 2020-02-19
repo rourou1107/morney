@@ -6,7 +6,6 @@ import store from './store';
 import Nav from '@/components/Nav.vue';
 import Icon from '@/components/Icon.vue';
 import tagListModel from '@/models/tagListModel';
-import createId from '@/lib/createId';
 
 
 Vue.config.productionTip = false;
@@ -23,6 +22,9 @@ window.createTag = function (name) {
     } else if (success === 'duplication') {
         window.alert('标签名重复');
     }
+}
+window.removeTag = function(tag) {
+    return tagListModel.remove(tag.id);
 }
 
 new Vue({
