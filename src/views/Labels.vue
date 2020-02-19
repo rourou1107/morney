@@ -29,16 +29,10 @@
     })
     export default class Label extends Vue {
         tags = window.tagList;
-
         createTag() {
             let name = window.prompt('请输入标签名');
             if (name) {
-                let success = tagListModel.create(name);
-                if (success === 'success') {
-                    window.alert('创建成功');
-                } else if (success === 'duplication') {
-                    window.alert('标签名重复');
-                }
+                window.createTag(name);
             }
         }
     }
