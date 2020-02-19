@@ -13,32 +13,33 @@ Vue.config.productionTip = false;
 Vue.component('Nav', Nav);
 Vue.component('Icon', Icon);
 
+window.store = {
+    // record store
+    recordList: recordListModel.fetch(),
+    createRecord: (record) => {
+        recordListModel.create(record);
+    },
 
-// record store
-window.recordList = recordListModel.fetch();
-window.createRecord = (record) => {
-    recordListModel.create(record)
-}
-
-// tag store
-// 将数据统一获取, 其余页面直接使用这里获取的数据即可
-window.tagList = tagListModel.fetch();
-window.createTag = (name) => {
-    let success = tagListModel.create(name);
-    if (success === 'success') {
-        window.alert('创建成功');
-    } else if (success === 'duplication') {
-        window.alert('标签名重复');
+    // tag store
+    // 将数据统一获取, 其余页面直接使用这里获取的数据即可
+    tagList: tagListModel.fetch(),
+    createTag: (name) => {
+        let success = tagListModel.create(name);
+        if (success === 'success') {
+            window.alert('创建成功');
+        } else if (success === 'duplication') {
+            window.alert('标签名重复');
+        }
+    },
+    removeTag: (tag) => {
+        return tagListModel.remove(tag.id);
+    },
+    updateTag: (id, value) => {
+        return tagListModel.update(id, value);
+    },
+    findTag: function (id) {
+        return this.tagList.filter(tag => tag.id === id)[0];
     }
-};
-window.removeTag = (tag) => {
-    return tagListModel.remove(tag.id);
-};
-window.updateTag = (id, value) => {
-    return tagListModel.update(id, value);
-};
-window.findTag = function (id) {
-    return this.tagList.filter(tag => tag.id === id)[0];
 };
 
 

@@ -19,7 +19,6 @@
     import FormItem from '@/components/money/FormItem.vue';
     import Types from '@/components/money/Types.vue';
     import NumberPad from '@/components/money/NumberPad.vue';
-    import recordListModel from '@/models/recordListModel';
     import {Component} from 'vue-property-decorator';
 
     @Component({
