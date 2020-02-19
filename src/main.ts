@@ -22,13 +22,16 @@ window.createTag = (name) => {
     } else if (success === 'duplication') {
         window.alert('标签名重复');
     }
-}
+};
 window.removeTag = (tag) => {
     return tagListModel.remove(tag.id);
-}
-window.updateTag = (tag, value) => {
-    return tagListModel.update(tag.id, value);
-}
+};
+window.updateTag = (id, value) => {
+    return tagListModel.update(id, value);
+};
+window.findTag = function (id) {
+    return this.tagList.filter(tag => tag.id === id)[0];
+};
 
 new Vue({
     router,

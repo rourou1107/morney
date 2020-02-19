@@ -22,7 +22,6 @@
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
     import Layout from '@/components/Layout.vue';
-    import tagListModel from '@/models/tagListModel';
     import FormItem from '@/components/money/FormItem.vue';
     import Button from '@/components/Button.vue';
 
@@ -33,26 +32,21 @@
         tag?: { id: string, name: string } = undefined;
 
         created() {
-            const id = this.$route.params.id;
-            const tags = window.tagList;
-            const tag = tags.filter(tag => tag.id === id)[0];
-            if (tag) {
-                this.tag = tag;
-            } else {
-                // replace 不会将路由添加到历史记录 history 中
+            this.tag = window.findTag(this.$route.params.id);
+            if (!this.tag) {
                 this.$router.replace('/404');
             }
         }
 
         update(value: string) {
             if (this.tag) {
-                tagListModel.update(this.tag.id, value);
+                window.updateTag(this.tag.id, value);
             }
         }
 
         remove() {
             if (this.tag) {
-                window.removeTag(this.tag)
+                window.removeTag(this.tag);
                 this.$router.back();
             }
         }
