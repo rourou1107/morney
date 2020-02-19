@@ -35,14 +35,14 @@
             types: '-',
             amount: 0,
         };
-        recordList: RecordItem[] = window.recordList;
+        recordList = window.recordList;
 
         onUpdateTags(value: string[]) { // 更新被选择标签
             this.record.tags = value;
         }
 
         saveRecord() {
-            recordListModel.create(this.record);
+            window.createRecord(this.record);
         }
     }
 </script>

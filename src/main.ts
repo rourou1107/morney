@@ -14,11 +14,13 @@ Vue.component('Nav', Nav);
 Vue.component('Icon', Icon);
 
 
-// recordListModel
+// record store
 window.recordList = recordListModel.fetch();
+window.createRecord = (record) => {
+    recordListModel.create(record)
+}
 
-
-// tagListModel
+// tag store
 // 将数据统一获取, 其余页面直接使用这里获取的数据即可
 window.tagList = tagListModel.fetch();
 window.createTag = (name) => {
