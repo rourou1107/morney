@@ -1,24 +1,25 @@
-import tagListModel from '@/models/tagListModel';
+import clone from '@/lib/clone';
+
+const localStorageKey = 'recordList';
+let data: RecordItem[] | undefined = undefined;
+
+function fetch() {
+    data = JSON.parse(window.localStorage.getItem(localStorageKey) || '[]') as RecordItem[];
+    return data;
+}
+
+function save() {
+    window.localStorage.setItem(localStorageKey, JSON.stringify(data));
+}
 
 export default {
-    // tag store
-    // 将数据统一获取, 其余页面直接使用这里获取的数据即可
-    tagList: tagListModel.fetch(),
-    createTag: (name: string) => {
-        let success = tagListModel.create(name);
-        if (success === 'success') {
-            window.alert('创建成功');
-        } else if (success === 'duplication') {
-            window.alert('标签名重复');
-        }
+    recordList: fetch(),
+    fetch: fetch,
+    save: save,
+    createRecord: (record: RecordItem) => {
+        let item: RecordItem = clone(record);
+        item.createAt = new Date();
+        data && data.push(item);
+        save();
     },
-    removeTag: (tag: Tag) => {
-        return tagListModel.remove(tag.id);
-    },
-    updateTag: (id: string, value: string) => {
-        return tagListModel.update(id, value);
-    },
-    findTag: function (id: string) {
-        return this.tagList.filter(tag => tag.id === id)[0];
-    }
-}
+};

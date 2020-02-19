@@ -6,7 +6,7 @@
         <ul class="current">
             <li
                     :class="selectTags.indexOf(tag.name) >= 0 && 'selected'"
-                    v-for="tag in dataSource"
+                    v-for="tag in tags"
                     :key="tag.id"
                     @click="toggle(tag.name)"
             >
@@ -19,10 +19,12 @@
 <script lang="ts">
     import Vue from 'vue';
     import {Component, Prop} from 'vue-property-decorator';
+    import store from '@/store/index2';
 
     @Component
     export default class Tags extends Vue {
-        @Prop(Array) dataSource: string[] | undefined;
+        // @Prop(Array) dataSource: string[] | undefined;
+        tags = store.tagList;
         selectTags: string[] = [];
 
         // 切换标签选中事件
@@ -41,10 +43,7 @@
             if (name === '' || name === null) {
                 return;
             } else {
-                if (this.dataSource) {
-                    // 不要直接改props
-                    this.$emit('update:dataSource', [...this.dataSource, name]);
-                }
+                store.createTag(name);
             }
         }
     }

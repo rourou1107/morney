@@ -1,6 +1,6 @@
 <template>
     <layout class-prefix="layout">
-        <tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+        <tags @update:value="onUpdateTags"/>
         <div class="form-wrapper">
             <form-item
                     form-item="备注"

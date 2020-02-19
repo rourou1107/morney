@@ -1,5 +1,5 @@
-import recordStore from '@/store/recordStore';
-import tagStore from '@/store/tagStore';
+import recordStore from '@/store/tagStore';
+import tagStore from '@/store/recordStore';
 
 const store = {
     ...recordStore,
