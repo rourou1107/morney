@@ -5,19 +5,19 @@ let data: RecordItem[] | undefined = undefined;
 
 const recordStore = {
     recordList: data,
-    fetch() {
+    fetchRecord() {
         data = JSON.parse(window.localStorage.getItem(localStorageKey) || '[]') as RecordItem[];
         return data;
     },
-    save() {
+    saveRecord() {
         window.localStorage.setItem(localStorageKey, JSON.stringify(data));
     },
     createRecord: (record: RecordItem) => {
         let item: RecordItem = clone(record);
         item.createAt = new Date();
         data && data.push(item);
-        recordStore.save();
+        recordStore.saveRecord();
     },
 };
-recordStore.fetch();
+recordStore.fetchRecord();
 export default recordStore;

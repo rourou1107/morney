@@ -40,7 +40,9 @@
 
         update(value: string) {
             if (this.tag) {
-                store.updateTag(this.tag.id, value);
+                if(store.updateTag(this.tag.id, value) === 'duplication') {
+                    window.alert('标签名重复')
+                }
             }
         }
 
