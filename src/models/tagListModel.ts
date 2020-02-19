@@ -31,7 +31,6 @@ const tagListModel: tagList = {
                 for (let i = 0; i < this.data.length; i++) {
                     if (this.data[i].id === id) {
                         this.data[i].name = name;
-                        console.log(this.data);
                         this.save();
                         return 'success';
                     }

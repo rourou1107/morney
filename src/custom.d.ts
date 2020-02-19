@@ -21,5 +21,6 @@ type tagList = {
 interface Window {
     tagList: Tag[],
     createTag: (name: string) => void,
-    removeTag: (tag: Tag) => boolean
+    removeTag: (tag: Tag) => boolean,
+    updateTag: (tag: Tag, value: string) => 'success' | 'duplication' | 'not found'
 }

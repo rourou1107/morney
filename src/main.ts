@@ -15,7 +15,7 @@ Vue.component('Icon', Icon);
 // tagListModel
 // 将数据统一获取, 其余页面直接使用这里获取的数据即可
 window.tagList = tagListModel.fetch();
-window.createTag = function (name) {
+window.createTag = (name) => {
     let success = tagListModel.create(name);
     if (success === 'success') {
         window.alert('创建成功');
@@ -23,8 +23,11 @@ window.createTag = function (name) {
         window.alert('标签名重复');
     }
 }
-window.removeTag = function(tag) {
+window.removeTag = (tag) => {
     return tagListModel.remove(tag.id);
+}
+window.updateTag = (tag, value) => {
+    return tagListModel.update(tag.id, value);
 }
 
 new Vue({
