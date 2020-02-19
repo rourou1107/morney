@@ -24,6 +24,7 @@
     import Layout from '@/components/Layout.vue';
     import FormItem from '@/components/money/FormItem.vue';
     import Button from '@/components/Button.vue';
+    import store from '@/store/index2';
 
     @Component({
         components: {Button, FormItem, Layout}
@@ -31,7 +32,7 @@
     export default class EditLabel extends Vue {
         tag?: Tag = undefined;
         created() {
-            this.tag = window.findTag(this.$route.params.id);
+            this.tag = store.findTag(this.$route.params.id);
             if (!this.tag) {
                 this.$router.replace('/404');
             }
@@ -39,13 +40,13 @@
 
         update(value: string) {
             if (this.tag) {
-                window.updateTag(this.tag.id, value);
+                store.updateTag(this.tag.id, value);
             }
         }
 
         remove() {
             if (this.tag) {
-                window.removeTag(this.tag);
+                store.removeTag(this.tag);
                 this.$router.back();
             }
         }

@@ -20,6 +20,7 @@
     import Types from '@/components/money/Types.vue';
     import NumberPad from '@/components/money/NumberPad.vue';
     import {Component} from 'vue-property-decorator';
+    import store from '@/store/index2';
 
     @Component({
         components: {
@@ -27,21 +28,21 @@
         }
     })
     export default class Money extends Vue {
-        tags = window.tagList;
+        tags = store.tagList;
         record: RecordItem = { // 最后会存在数据库里。LocalStorage
             tags: [],
             notes: '',
             types: '-',
             amount: 0,
         };
-        recordList = window.recordList;
+        recordList = store.recordList;
 
         onUpdateTags(value: string[]) { // 更新被选择标签
             this.record.tags = value;
         }
 
         saveRecord() {
-            window.createRecord(this.record);
+            store.createRecord(this.record);
         }
     }
 </script>
