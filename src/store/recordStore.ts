@@ -17,6 +17,7 @@ const recordStore = {
         this.recordList && this.recordList.push(item);
         recordStore.saveRecord();
     },
+
 };
 recordStore.fetchRecord();
 export default recordStore;

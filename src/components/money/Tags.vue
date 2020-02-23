@@ -18,14 +18,21 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Prop} from 'vue-property-decorator';
-    import store from '@/store/index2';
+    import {Component} from 'vue-property-decorator';
 
-    @Component
+    @Component({
+        computed: {
+            tags() {
+                return this.$store.state.tagList;
+            }
+        }
+    })
     export default class Tags extends Vue {
-        // @Prop(Array) dataSource: string[] | undefined;
-        tags = store.tagList;
         selectTags: string[] = [];
+
+        created() {
+            this.$store.commit('fetchTag');
+        }
 
         // 切换标签选中事件
         toggle(tag: string) {
@@ -43,9 +50,10 @@
             if (name === '' || name === null) {
                 return;
             } else {
-                store.createTag(name);
+                this.$store.commit('createTag', name);
             }
         }
+
     }
 </script>
 
