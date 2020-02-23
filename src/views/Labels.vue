@@ -20,8 +20,9 @@
 <script lang="ts">
     import Vue from 'vue';
     import Layout from '@/components/Layout.vue';
-    import {Component} from 'vue-property-decorator';
+    import {Component, Mixins} from 'vue-property-decorator';
     import Button from '@/components/Button.vue';
+    import TagsHelper from '@/mixins/tagsHelper';
 
     @Component({
         components: {Button, Layout},
@@ -31,16 +32,9 @@
             }
         }
     })
-    export default class Label extends Vue {
+    export default class Label extends Mixins(TagsHelper) {
         created() {
             this.$store.commit('fetchTag');
-        }
-
-        createTag() {
-            let name = window.prompt('请输入标签名');
-            if (name) {
-                this.$store.commit('createTag', name);
-            }
         }
     }
 </script>
