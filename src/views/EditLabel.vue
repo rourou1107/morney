@@ -24,15 +24,19 @@
     import Layout from '@/components/Layout.vue';
     import FormItem from '@/components/money/FormItem.vue';
     import Button from '@/components/Button.vue';
-    import store from '@/store/index2';
 
     @Component({
         components: {Button, FormItem, Layout}
     })
     export default class EditLabel extends Vue {
-        tag?: Tag = undefined;
+        get tag() {
+            return this.$store.state.currentTag;
+        }
+
         created() {
-            this.tag = store.findTag(this.$route.params.id);
+            this.$store.commit('fetchTag');
+            const id = this.$route.params.id;
+            this.$store.commit('setCurrentTag', id);
             if (!this.tag) {
                 this.$router.replace('/404');
             }
@@ -40,15 +44,13 @@
 
         update(value: string) {
             if (this.tag) {
-                if(store.updateTag(this.tag.id, value) === 'duplication') {
-                    window.alert('标签名重复')
-                }
+                this.$store.commit('updateTag', {id: this.tag.id, value});
             }
         }
 
         remove() {
             if (this.tag) {
-                store.removeTag(this.tag);
+                this.$store.commit('removeTag', this.tag);
                 this.$router.back();
             }
         }
