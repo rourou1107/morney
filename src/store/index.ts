@@ -51,10 +51,17 @@ const store = new Vuex.Store({
             const {id, name} = object;
             const idList = state.tagList.map(item => item.id);
             if (idList.indexOf(id) > -1) {
+                const index1 = idList.findIndex(value => value === id);
                 const nameList = state.tagList.map(item => item.name);
+                const index2 = nameList.findIndex(value => value === name);
                 // 判断修改后的name是否重复
+                if (index1 === index2) {
+                    state.tagList[index1].name = name;
+                    store.commit('saveTags');
+                    return;
+                }
                 if (nameList.indexOf(name) > -1) {
-                    window.alert('标签名重复')
+                    window.alert('标签名重复');
                 } else {
                     for (let i = 0; i < state.tagList.length; i++) {
                         if (state.tagList[i].id === id) {
@@ -63,6 +70,7 @@ const store = new Vuex.Store({
                         }
                     }
                 }
+
             }
         },
         removeTag(state, tag: Tag) {

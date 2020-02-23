@@ -44,7 +44,7 @@
 
         update(value: string) {
             if (this.tag) {
-                this.$store.commit('updateTag', {id: this.tag.id, value});
+                this.$store.commit('updateTag', {id: this.tag.id, name: value});
             }
         }
 
