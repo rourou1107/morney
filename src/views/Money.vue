@@ -24,11 +24,6 @@
     @Component({
         components: {
             Layout, Tags, FormItem: FormItem, Types, NumberPad
-        },
-        computed: {
-            recordList() {
-                return this.$store.state.recordList;
-            }
         }
     })
     export default class Money extends Vue {
@@ -38,7 +33,9 @@
             types: '-',
             amount: 0,
         };
-
+        get recordList() {
+            return this.$store.state.recordList;
+        }
         created() {
             // 开始时初始化 recordList
             this.$store.commit('fetchRecord');

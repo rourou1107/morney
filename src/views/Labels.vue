@@ -18,21 +18,18 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
     import Layout from '@/components/Layout.vue';
     import {Component, Mixins} from 'vue-property-decorator';
     import Button from '@/components/Button.vue';
     import TagsHelper from '@/mixins/tagsHelper';
 
     @Component({
-        components: {Button, Layout},
-        computed: {
-            tags() {
-                return this.$store.state.tagList;
-            }
-        }
+        components: {Button, Layout}
     })
     export default class Label extends Mixins(TagsHelper) {
+        get  tags() {
+            return this.$store.state.tagList;
+        }
         created() {
             this.$store.commit('fetchTag');
         }
