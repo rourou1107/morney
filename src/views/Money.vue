@@ -20,29 +20,36 @@
     import Types from '@/components/money/Types.vue';
     import NumberPad from '@/components/money/NumberPad.vue';
     import {Component} from 'vue-property-decorator';
-    import store from '@/store/index2';
 
     @Component({
         components: {
             Layout, Tags, FormItem: FormItem, Types, NumberPad
+        },
+        computed: {
+            recordList() {
+                return this.$store.state.recordList;
+            }
         }
     })
     export default class Money extends Vue {
-        tags = store.tagList;
-        record: RecordItem = { // 最后会存在数据库里。LocalStorage
+        record: RecordItem = {
             tags: [],
             notes: '',
             types: '-',
             amount: 0,
         };
-        recordList = store.recordList;
 
-        onUpdateTags(value: string[]) { // 更新被选择标签
+        created() {
+            // 开始时初始化 recordList
+            this.$store.commit('fetchRecord');
+        }
+
+        onUpdateTags(value: string[]) {
             this.record.tags = value;
         }
 
         saveRecord() {
-            store.createRecord(this.record);
+            this.$store.commit('createRecord', this.record);
         }
     }
 </script>
