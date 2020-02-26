@@ -7,13 +7,15 @@ Vue.use(Vuex);
 type myState = {
     recordList: RecordItem[],
     tagList: Tag[],
-    currentTag?: Tag
+    currentTag?: Tag,
+    repeatFlag?: boolean
 }
 const store = new Vuex.Store({
     state: {
         recordList: [],
         tagList: [],
-        currentTag: undefined
+        currentTag: undefined,
+        repeatFlag: undefined
     } as myState,
     mutations: {
         fetchRecord(state) {
@@ -61,8 +63,10 @@ const store = new Vuex.Store({
                     return;
                 }
                 if (nameList.indexOf(name) > -1) {
+                    state.repeatFlag = true;
                     window.alert('标签名重复');
                 } else {
+                    state.repeatFlag = false;
                     for (let i = 0; i < state.tagList.length; i++) {
                         if (state.tagList[i].id === id) {
                             state.tagList[i].name = name;

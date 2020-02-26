@@ -56,7 +56,9 @@
         }
 
         back() {
-            this.$router.back();
+            if(!this.$store.state.repeatFlag) {
+                this.$router.back();
+            }
         }
     }
 </script>
