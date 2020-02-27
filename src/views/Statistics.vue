@@ -12,10 +12,9 @@
     import Vue from 'vue';
     import Layout from "@/components/Layout.vue";
     import {Component} from 'vue-property-decorator';
-    import Types from '@/components/money/Types.vue';
     import Tabs from '@/components/Tabs.vue';
     @Component({
-        components: {Tabs, Types, Layout}
+        components: {Tabs, Layout}
     })
     export default class Statistics extends Vue {
         type:string =  '-';
