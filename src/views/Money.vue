@@ -7,7 +7,9 @@
                     placeholder="请输入备注内容"
                     @update:value="record.notes=$event"/>
         </div>
-        <types :value.sync="record.types"/>
+        <tabs :value.sync="record.types"
+              :data-source="typeList"
+        />
         <number-pad @update:value="record.amount=$event" @submit="saveRecord"/>
     </layout>
 </template>
@@ -20,9 +22,11 @@
     import Types from '@/components/money/Types.vue';
     import NumberPad from '@/components/money/NumberPad.vue';
     import {Component} from 'vue-property-decorator';
+    import Tabs from '@/components/Tabs.vue';
 
     @Component({
         components: {
+            Tabs,
             Layout, Tags, FormItem: FormItem, Types, NumberPad
         }
     })
@@ -33,6 +37,10 @@
             types: '-',
             amount: 0,
         };
+        typeList = [
+            {text: '支出', value: '-'},
+            {text: '收入', value: '+'}
+        ];
         get recordList() {
             return this.$store.state.recordList;
         }
