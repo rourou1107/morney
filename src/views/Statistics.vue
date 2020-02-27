@@ -1,6 +1,7 @@
 <template>
     <layout>
-        <Types :value.sync="type" class="xxx"/>
+        <Types :value.sync="type"
+               class-prefix="bbb"/>
     </layout>
 </template>
 
@@ -18,7 +19,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .xxx ::v-deep div { /* >>> 等价于 ::v-deep */
+    ::v-deep .bbb-item { /* >>> 等价于 ::v-deep */
         &.selected {
             background: #ffffff;
             &::after {
