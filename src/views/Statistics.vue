@@ -10,32 +10,32 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import Layout from "@/components/Layout.vue";
+    import Layout from '@/components/Layout.vue';
     import {Component} from 'vue-property-decorator';
     import Tabs from '@/components/Tabs.vue';
+    import intervalList from '@/constants/intervalList';
+    import typeList from '@/constants/typeList';
+
     @Component({
         components: {Tabs, Layout}
     })
     export default class Statistics extends Vue {
-        type:string =  '-';
-        interval:string = 'day';
-        intervalList = [
-            {text: '按天', value: 'day'},
-            {text: '按周', value: 'week'},
-            {text: '按月', value: 'month'}
-        ]
-        typeList = [
-            {text: '支出', value: '-'},
-            {text: '收入', value: '+'}
-        ]
+        type: string = '-';
+        interval: string = 'day';
+        intervalList = intervalList;
+        typeList = typeList;
     }
 </script>
 
 <style lang="scss" scoped>
     ::v-deep .tabs-type-item { /* >>> 等价于 ::v-deep */
         background: #ffffff;
+        padding: 20px 0;
+        font-size: 24px;
+
         &.selected {
             background: #c4c4c4;
+
             &::after {
                 display: none;
             }

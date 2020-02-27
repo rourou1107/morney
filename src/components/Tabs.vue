@@ -38,11 +38,11 @@
     .types {
         background: #c4c4c4;
         display: flex;
-        font-size: 24px;
+        font-size: 20px;
 
         li {
             width: 50%;
-            padding: 20px 0;
+            padding: 12px 0;
             text-align: center;
 
             &.selected {
