@@ -2,9 +2,12 @@
     <layout>
         <Tabs :data-source="typeList"
               :value.sync="type"
-              :class-prefix="'tabs'"
+              class-prefix="type"
         />
-        <Tabs :data-source="intervalList" :value.sync="interval"/>
+        <Tabs :data-source="intervalList"
+              :value.sync="interval"
+              class-prefix="interval"
+        />
     </layout>
 </template>
 
@@ -28,10 +31,8 @@
 </script>
 
 <style lang="scss" scoped>
-    ::v-deep .tabs-type-item { /* >>> 等价于 ::v-deep */
+    ::v-deep .type-tabs-item { /* >>> 等价于 ::v-deep */
         background: #ffffff;
-        padding: 20px 0;
-        font-size: 24px;
 
         &.selected {
             background: #c4c4c4;
@@ -40,5 +41,9 @@
                 display: none;
             }
         }
+    }
+    ::v-deep .interval-tabs-item {
+        padding: 12px 0;
+        font-size: 20px;
     }
 </style>

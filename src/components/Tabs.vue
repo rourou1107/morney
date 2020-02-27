@@ -1,8 +1,9 @@
 <template>
-    <ul class="types">
+    <ul class="tabs">
         <li v-for="(item) in dataSource"
             :key="item.value"
             @click="select(item)"
+            class="tabs-item"
             :class="liClass(item)"
         >
             {{item.text}}
@@ -25,7 +26,7 @@
         liClass(item: DataSourceItem) {
             return {
                 selected: item.value=== this.value,
-                [this.classPrefix+'-type-item']: this.classPrefix
+                [this.classPrefix+'-tabs-item']: this.classPrefix,
             }
         }
         select(item: DataSourceItem) {
@@ -35,14 +36,14 @@
 </script>
 
 <style lang="scss" scoped>
-    .types {
+    .tabs {
         background: #c4c4c4;
         display: flex;
-        font-size: 20px;
+        font-size: 24px;
 
-        li {
+        &-item{
             width: 50%;
-            padding: 12px 0;
+            padding: 20px 0;
             text-align: center;
 
             &.selected {
