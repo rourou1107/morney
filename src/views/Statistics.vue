@@ -9,7 +9,7 @@
               class-prefix="interval"
         />
         <div v-for="group in result" :key="group.title">
-            <h3 class="title">{{group.title}}</h3>
+            <h3 class="title">{{beautifyTime(group.title)}}</h3>
             <ol>
                 <li v-for="(item, index) in group.items" :key="index" class="record">
                     <span>{{tagString(item.tags)}}</span>
@@ -31,6 +31,8 @@
     import Tabs from '@/components/Tabs.vue';
     import intervalList from '@/constants/intervalList';
     import typeList from '@/constants/typeList';
+    import dayjs from 'dayjs';
+
 
     @Component({
         components: {Tabs, Layout}
@@ -76,8 +78,25 @@
         created() {
             this.$store.commit('fetchRecord');
         }
+
         tagString(tag: string[]) {
             return tag.length === 0 ? '无' : tag.join('，');
+        }
+
+        beautifyTime(string: string) {
+            const date = dayjs(string);
+            const now = dayjs(); // 现在的时间
+            if (date.isSame(now, 'day')) {
+                return '今天';
+            } else if (date.isSame(now.subtract(1, 'day'), 'day')) {
+                return '昨天';
+            } else if (date.isSame(now.subtract(2, 'day'), 'day')) {
+                return '前天';
+            } else if(date.isSame(now, 'year')) {
+                return date.format('M月D日');
+            }else {
+                return date.format('YYYY年M月D日');
+            }
         }
     }
 </script>
@@ -101,29 +120,36 @@
             font-size: 20px;
         }
     }
+
     %item {
         padding: 8px 16px;
         display: flex;
         justify-content: space-between;
     }
+
     .title {
         @extend %item;
         line-height: 24px;
     }
+
     .record {
         @extend %item;
         background: #ffffff;
+
         .note {
             margin-right: auto;
             margin-left: 16px;
             color: #999999;
         }
-        .orange{
+
+        .orange {
             color: #da9b29;
         }
+
         .amount {
             display: flex;
             align-items: center;
+
             .mark {
                 padding-right: 3px;
             }
