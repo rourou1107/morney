@@ -32,6 +32,7 @@
     import intervalList from '@/constants/intervalList';
     import typeList from '@/constants/typeList';
     import dayjs from 'dayjs';
+    import clone from '@/lib/clone';
 
 
     @Component({
@@ -54,25 +55,23 @@
                 items: RecordItem[]
             }
             /**
-             * hashTable = {
-             *     2020-02-27: {
-             *         title: 2020-02-27,
-             *         items: [
-             *             {tags: ['衣'], notes: '买衣服', type: '-', amount: 120, createAt: '2020-02-27T01:32:58.518Z'},
-             *             {tags: ['食'], notes: '吃饭', type: '-', amount: 15, createAt: '2020-02-27T02:32:58.518Z'}
-             *         ]
-             *     },
-             *      .........
-             * }
+             * hashTable = [
+             * {title: 2020-02-27,
+             *  items: [
+             *           {tags: ['衣'], notes: '买衣服', type: '-', amount: 120, createAt: '2020-02-27T01:32:58.518Z'},
+             *           {tags: ['食'], notes: '吃饭', type: '-', amount: 15, createAt: '2020-02-27T02:32:58.518Z'}
+             *         ]},
+             *     .........]
              **/
-            const hashTable: { [key: string]: hashTableValue } = {};
+            const hashTable: { [key: string]: hashTableValue }[] = [];
             const recordList = this.recordList;
-            for (let i = 0; i < recordList.length; i++) {
-                const [date] = recordList[i].createAt!.split('T');
-                hashTable[date] = hashTable[date] || {title: date, items: []};
-                hashTable[date].items.push(recordList[i]);
-            }
-            return hashTable;
+            // for (let i = 0; i < recordList.length; i++) {
+            //     const [date] = recordList[i].createAt!.split('T');
+            //     hashTable[date] = hashTable[date] || {title: date, items: []};
+            //     hashTable[date].items.push(recordList[i]);
+            // }
+            const newList = clone(recordList).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+            // return hashTable;
         }
 
         created() {
