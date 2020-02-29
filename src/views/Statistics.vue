@@ -9,13 +9,15 @@
               class-prefix="interval"
         />
         <div v-for="group in result" :key="group.title">
-            {{group.title}}
-           <hr/>
+            <h3 class="title">{{group.title}}</h3>
             <ol>
-                <li v-for="(item, index) in group.items" :key="index">
-                    {{item.tags}}
-                    {{item.notes}}
-                    {{item.amount}}
+                <li v-for="(item, index) in group.items" :key="index" class="record">
+                    <span>{{tagString(item.tags)}}</span>
+                    <span class="note">{{item.notes}}</span>
+                    <span :class="{orange: type==='+'}" class="amount">
+                        <span class="mark">{{type==='+' ? '+' : '-'}}</span>
+                        <span>{{item.amount}} 元</span>
+                    </span>
                 </li>
             </ol>
         </div>
@@ -74,6 +76,9 @@
         created() {
             this.$store.commit('fetchRecord');
         }
+        tagString(tag: string[]) {
+            return tag.length === 0 ? '无' : tag.join('，');
+        }
     }
 </script>
 
@@ -94,6 +99,34 @@
         .interval-tabs-item {
             padding: 12px 0;
             font-size: 20px;
+        }
+    }
+    %item {
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .title {
+        @extend %item;
+        line-height: 24px;
+    }
+    .record {
+        @extend %item;
+        background: #ffffff;
+        .note {
+            margin-right: auto;
+            margin-left: 16px;
+            color: #999999;
+        }
+        .orange{
+            color: #da9b29;
+        }
+        .amount {
+            display: flex;
+            align-items: center;
+            .mark {
+                padding-right: 3px;
+            }
         }
     }
 </style>
