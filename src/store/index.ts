@@ -9,13 +9,17 @@ const store = new Vuex.Store({
         recordList: [],
         tagList: [],
         currentTag: undefined,
-        repeatFlag: undefined
+        flag: undefined
     } as myState,
     mutations: {
         fetchRecord(state) {
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
         },
         createRecord(state, record: RecordItem) {
+            if (!record.tags || record.tags.length === 0) {
+                window.alert('请至少选择一个标签名');
+                return;
+            }
             let item: RecordItem = clone(record);
             item.createAt = new Date().toISOString();
             state.recordList.push(item);
@@ -35,7 +39,6 @@ const store = new Vuex.Store({
                 let id = createId().toString();
                 state.tagList.push({id, name});
                 store.commit('saveTags');
-                window.alert('创建成功');
             } else {
                 window.alert('标签名重复');
             }
@@ -50,17 +53,18 @@ const store = new Vuex.Store({
                 const index1 = idList.findIndex(value => value === id);
                 const nameList = state.tagList.map(item => item.name);
                 const index2 = nameList.findIndex(value => value === name);
-                // 判断修改后的name是否重复
-                if (index1 === index2) {
+                if (index1 === index2) { // 修改的标签名与之前相同
+                    state.flag = {type: 0, value: true};
                     state.tagList[index1].name = name;
                     store.commit('saveTags');
                     return;
                 }
                 if (nameList.indexOf(name) > -1) {
-                    state.repeatFlag = true;
-                    window.alert('标签名重复');
+                    state.flag = {type: 1, value: false};
+                } else if (!name) {
+                    state.flag = {type: 2, value: false};
                 } else {
-                    state.repeatFlag = false;
+                    state.flag = {type: 0, value: true};
                     for (let i = 0; i < state.tagList.length; i++) {
                         if (state.tagList[i].id === id) {
                             state.tagList[i].name = name;
@@ -79,6 +83,7 @@ const store = new Vuex.Store({
                     break;
                 }
             }
+            window.alert('删除成功');
             state.tagList.splice(index, 1);
             store.commit('saveTags');
         },

@@ -56,7 +56,16 @@
         }
 
         back() {
-            if(!this.$store.state.repeatFlag) {
+            if(!this.$store.state.flag.value) {
+                if(this.$store.state.flag.type === 1){
+                    window.alert('标签名重复');
+                    return;
+                }else {
+                    window.alert('请输入标签名');
+                    return;
+                }
+            }
+            if(this.$store.state.flag.value) {
                 this.$router.back();
             }
         }

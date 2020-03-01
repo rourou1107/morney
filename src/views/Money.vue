@@ -5,6 +5,7 @@
             <form-item
                     form-item="备注"
                     placeholder="请输入备注内容"
+                    :value="record.notes"
                     @update:value="record.notes=$event"/>
         </div>
         <tabs :value.sync="record.types"
@@ -38,9 +39,11 @@
             amount: 0,
         };
         typeList = typeList;
+
         get recordList() {
             return this.$store.state.recordList;
         }
+
         created() {
             // 开始时初始化 recordList
             this.$store.commit('fetchRecord');
@@ -52,6 +55,8 @@
 
         saveRecord() {
             this.$store.commit('createRecord', this.record);
+            this.record.notes = '';
+            window.alert('保存成功');
         }
     }
 </script>

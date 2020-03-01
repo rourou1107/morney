@@ -4,25 +4,32 @@
               :value.sync="type"
               class-prefix="type"
         />
-        <div v-for="group in groupList" :key="group.title">
-            <h3 class="title">
-                {{beautifyTime(group.title)}}
-                <span :class="{orange: type==='+'}">
+        <div v-if="groupList.length!==0">
+            <div v-for="group in groupList" :key="group.title">
+                <h3 class="title">
+                    {{beautifyTime(group.title)}}
+                    <span :class="{orange: type==='+'}">
                     合计:
                     <span class="mark">{{type==='+' ? '+' : '-'}}</span>
                     <span>{{group.total}} 元</span>
                 </span>
-            </h3>
-            <ol>
-                <li v-for="(item, index) in group.items" :key="index" class="record">
-                    <span>{{tagString(item.tags)}}</span>
-                    <span class="note">{{item.notes}}</span>
-                    <span :class="{orange: type==='+'}" class="amount">
+                </h3>
+                <ol>
+                    <li v-for="(item, index) in group.items" :key="index" class="record">
+                        <span>{{tagString(item.tags)}}</span>
+                        <span class="note">{{item.notes}}</span>
+                        <span :class="{orange: type==='+'}" class="amount">
                         <span class="mark">{{type==='+' ? '+' : '-'}}</span>
                         <span>{{item.amount}} 元</span>
                     </span>
-                </li>
-            </ol>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div v-else class="nothing-wrapper">
+            <span class="nothing">暂时没有相关记录</span>
+            <img src="../assets/images/cry.jpg" alt="没钱" v-if="type==='+'">
+            <img src="../assets/images/good.jpg" alt="节约" v-else>
         </div>
     </layout>
 </template>
@@ -67,7 +74,9 @@
             const resultList: ResultListValue[] = [];
             const recordList = this.recordList;
             const newList = clone(recordList).filter(r => r.types === this.type).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
-            // console.log(newList);
+            if (newList.length === 0 || !newList) {
+                return [];
+            }
             resultList[0] = {title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]};
             for (let i = 1; i < newList.length; i++) {
                 let last = resultList[resultList.length - 1].title;
@@ -85,7 +94,6 @@
                     return sum + current.amount;
                 }, 0);
             });
-            console.log(resultList);
             return resultList;
         }
 
@@ -119,8 +127,10 @@
     ::v-deep {
         .type-tabs-item { /* >>> 等价于 ::v-deep */
             background: #c4c4c4;
+
             &.selected {
                 background: #ffffff;
+
                 &::after {
                     display: none;
                 }
@@ -154,6 +164,7 @@
             margin-left: 16px;
             color: #999999;
         }
+
         .amount {
             display: flex;
             align-items: center;
@@ -163,7 +174,19 @@
             }
         }
     }
+
     .orange {
         color: #da9b29;
     }
+    .nothing-wrapper {
+        text-align: center;
+        .nothing {
+            display: block;
+            padding: 16px;
+        }
+        img {
+            width: 60%;
+        }
+    }
+
 </style>

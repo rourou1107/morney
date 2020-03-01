@@ -18,11 +18,15 @@ type tagList = {
     save: () => void
 }
 
+type Flag = {
+    type: number, // 0--成功 1--标签名重复 2--标签名为空
+    value: boolean
+}
 type myState = {
     recordList: RecordItem[],
     tagList: Tag[],
     currentTag?: Tag,
-    repeatFlag?: boolean
+    flag?: Flag
 }
 
 interface Window {

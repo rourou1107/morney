@@ -3,6 +3,7 @@
         <label>
             <span class="name">{{formItem}}</span>
             <input type="text"
+                   class="input-value"
                    :placeholder="placeholder"
                    :value="value"
                    @input="onValueChange($event.target.value)"
@@ -13,7 +14,7 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Prop, Watch} from 'vue-property-decorator';
+    import {Component, Prop} from 'vue-property-decorator';
 
     @Component
     export default class FormItem extends Vue {
@@ -42,6 +43,7 @@
 
             input {
                 height: 40px;
+                font-size: 14px;
                 flex-grow: 1;
             }
         }
