@@ -20,3 +20,15 @@ new Vue({
 window.onload = function () {
     window.scrollTo(0, 100000);
 };
+
+let width = window.document.documentElement.clientWidth;
+if (width > 500) {
+    window.alert('请使用手机预览，以保证浏览最佳。');
+    let img = window.document.createElement('img');
+    img.src = './img/qrcode.png';
+    img.style.position = 'fixed';
+    img.style.left = '50%';
+    img.style.top = '50%';
+    img.style.transform = 'translate(-50%, -50%)';
+    window.document.body.appendChild(img);
+}
