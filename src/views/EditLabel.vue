@@ -24,6 +24,7 @@
     import Layout from '@/components/Layout.vue';
     import FormItem from '@/components/money/FormItem.vue';
     import Button from '@/components/Button.vue';
+    import openTip from '@/lib/tip';
 
     @Component({
         components: {Button, FormItem, Layout}
@@ -56,18 +57,19 @@
         }
 
         back() {
-            if(!this.$store.state.flag.value) {
-                if(this.$store.state.flag.type === 1){
-                    window.alert('标签名重复');
-                    return;
-                }else {
-                    window.alert('请输入标签名');
-                    return;
+            // 可能没有输入操作
+            if(this.$store.state.flag) {
+                if(!this.$store.state.flag.value) {
+                    if(this.$store.state.flag.type === 1){
+                        openTip('标签名重复', 'warning');
+                        return;
+                    }else {
+                        openTip('请输入标签名', 'warning');
+                        return;
+                    }
                 }
             }
-            if(this.$store.state.flag.value) {
-                this.$router.back();
-            }
+            this.$router.back();
         }
     }
 </script>
