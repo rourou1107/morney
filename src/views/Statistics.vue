@@ -10,8 +10,7 @@
                     {{beautifyTime(group.title)}}
                     <span :class="{orange: type==='+'}">
                     合计:
-                    <span class="mark">{{type==='+' ? '+' : '-'}}</span>
-                    <span>{{group.total}} 元</span>
+                    <span>￥{{group.total}} 元</span>
                 </span>
                 </h3>
                 <ol>

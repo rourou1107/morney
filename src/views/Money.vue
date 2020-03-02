@@ -56,7 +56,6 @@
         saveRecord() {
             this.$store.commit('createRecord', this.record);
             this.record.notes = '';
-            window.alert('保存成功');
         }
     }
 </script>

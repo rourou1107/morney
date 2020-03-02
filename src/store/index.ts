@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
+import openTip from '@/lib/tip';
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -17,7 +18,7 @@ const store = new Vuex.Store({
         },
         createRecord(state, record: RecordItem) {
             if (!record.tags || record.tags.length === 0) {
-                window.alert('请至少选择一个标签名');
+                openTip('请至少选择一个标签名', 'warning');
                 return;
             }
             let item: RecordItem = clone(record);
@@ -27,6 +28,8 @@ const store = new Vuex.Store({
         },
         saveRecord(state) {
             window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
+            openTip('保存成功', 'success');
+
         },
 
         fetchTag(state) {
@@ -39,8 +42,9 @@ const store = new Vuex.Store({
                 let id = createId().toString();
                 state.tagList.push({id, name});
                 store.commit('saveTags');
+                openTip('创建成功', 'success');
             } else {
-                window.alert('标签名重复');
+                openTip('标签名重复', 'warning');
             }
         },
         setCurrentTag(state, id) {
@@ -83,9 +87,10 @@ const store = new Vuex.Store({
                     break;
                 }
             }
-            window.alert('删除成功');
+
             state.tagList.splice(index, 1);
             store.commit('saveTags');
+            openTip('删除成功', 'success');
         },
         saveTags(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));

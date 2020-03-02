@@ -25,4 +25,11 @@ export default {
         font-family: $font-hei;
         color: #333;
     }
+    body .message {
+        min-width: 80px;
+        min-height: 50px;
+    }
+    body .prompt {
+        width: 80vw;
+    }
 </style>
