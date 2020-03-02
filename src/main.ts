@@ -23,7 +23,7 @@ window.onload = function () {
 
 let width = window.document.documentElement.clientWidth;
 if (width > 500) {
-    window.alert('请使用手机预览，以保证浏览最佳。');
+    window.alert('请使用手机扫描屏幕二维码浏览，以保证浏览最佳。');
     let img = window.document.createElement('img');
     img.src = './img/qrcode.png';
     img.style.position = 'fixed';
