@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
 import openTip from '@/lib/tip';
+import dayjs from 'dayjs';
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -10,7 +11,9 @@ const store = new Vuex.Store({
         recordList: [],
         tagList: [],
         currentTag: undefined,
-        flag: undefined
+        flag: undefined,
+        year: undefined,
+        month: undefined
     } as myState,
     mutations: {
         fetchRecord(state) {
@@ -94,6 +97,39 @@ const store = new Vuex.Store({
         },
         saveTags(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
+        },
+
+        fetchMonth(state) {
+            state.month = dayjs().month() + 1;
+        },
+        fetchYear(state) {
+            state.year = dayjs().year();
+        },
+        updateMonth(state, object: { dateType: string, operationType: string }) {
+            const {dateType, operationType} = object;
+            if (dateType === 'month') {
+                if (operationType === '+') {
+                    if (state.month) {
+                        state.month = state.month < 12 ? state.month + 1 : 1;
+                    }
+                } else {
+                    if (state.month) {
+                        state.month = state.month > 1 ? state.month - 1 : 12;
+                    }
+                }
+            }
+        },
+        updateYear(state, object: { newValue: number, oldValue: number }) {
+            const {newValue, oldValue} = object;
+            if (oldValue === 12 && newValue === 1) {
+                if (state.year) {
+                    state.year = state.year + 1;
+                }
+            } else if (oldValue === 1 && newValue === 12) {
+                if (state.year) {
+                    state.year = state.year - 1;
+                }
+            }
         }
     }
 });
