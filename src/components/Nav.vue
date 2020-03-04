@@ -12,6 +12,10 @@
             <Icon name="statistics"/>
             统计
         </router-link>
+        <router-link to="/echarts" class="item" active-class="selected">
+            <Icon name="e-chart"/>
+            图表
+        </router-link>
     </nav>
 </template>
 
