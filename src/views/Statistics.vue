@@ -4,6 +4,7 @@
               :value.sync="type"
               class-prefix="type"
         />
+        <MyDate/>
         <div v-if="groupList.length!==0">
             <div v-for="group in groupList" :key="group.title">
                 <h3 class="title">
@@ -41,14 +42,23 @@
     import typeList from '@/constants/typeList';
     import dayjs from 'dayjs';
     import clone from '@/lib/clone';
+    import MyDate from '@/components/statistics/MyDate.vue';
 
 
     @Component({
-        components: {Tabs, Layout}
+        components: {MyDate, Tabs, Layout}
     })
     export default class Statistics extends Vue {
         type: string = '-';
         typeList = typeList;
+
+        get month() {
+            return this.$store.state.month;
+        }
+
+        get year() {
+            return this.$store.state.year;
+        }
 
         get recordList() {
             // 因为 vue 把 state 定义为 any。所以这里需要断言成具体的数据
@@ -70,9 +80,10 @@
              *         ]},
              *     .........]
              **/
-            const resultList: ResultListValue[] = [];
+            let resultList: ResultListValue[] = [];
             const recordList = this.recordList;
-            const newList = clone(recordList).filter(r => r.types === this.type).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+            const newList = clone(recordList).filter(r => r.types === this.type)
+                .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
             if (newList.length === 0 || !newList) {
                 return [];
             }
@@ -88,6 +99,11 @@
                     };
                 }
             }
+            resultList = resultList.filter(r => {
+                return dayjs(r.title).isSame(`${this.year}`, 'year')
+                    && dayjs(r.title).isSame(`${this.year}-${this.month}`, 'month');
+            });
+
             resultList.forEach((item) => {
                 item.total = item.items.reduce((sum, current) => {
                     return sum + current.amount;
@@ -98,6 +114,8 @@
 
         created() {
             this.$store.commit('fetchRecord');
+            this.$store.commit('fetchMonth');
+            this.$store.commit('fetchYear');
         }
 
         tagString(tag: string[]) {
@@ -119,6 +137,7 @@
                 return date.format('YYYY年M月D日');
             }
         }
+
     }
 </script>
 
@@ -177,12 +196,15 @@
     .orange {
         color: #da9b29;
     }
+
     .nothing-wrapper {
         text-align: center;
+
         .nothing {
             display: block;
             padding: 16px;
         }
+
         img {
             width: 60%;
         }

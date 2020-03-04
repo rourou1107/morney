@@ -26,7 +26,9 @@ type myState = {
     recordList: RecordItem[],
     tagList: Tag[],
     currentTag?: Tag,
-    flag?: Flag
+    flag?: Flag,
+    year?: number,
+    month?: number
 }
 
 interface Window {
