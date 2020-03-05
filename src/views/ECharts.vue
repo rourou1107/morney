@@ -26,7 +26,6 @@
     })
     export default class ECharts extends mixins(GroupListHelper) {
         dataSource = [{text: '收入', value: '+'}, {text: '支出', value: '-'}];
-
         mounted() {
             this.drawChart();
         }
