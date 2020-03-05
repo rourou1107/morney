@@ -90,6 +90,7 @@
                     {
                         type: 'line',
                         symbol: 'circle',
+                        smooth: 0.5,
                         itemStyle: {
                             color: 'rgba(0, 0, 0, 0.3)'
                         },

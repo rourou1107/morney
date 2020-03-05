@@ -28,8 +28,7 @@
         </div>
         <div v-else class="nothing-wrapper">
             <span class="nothing">暂时没有相关记录</span>
-            <img src="../assets/images/cry.jpg" alt="没钱" v-if="type==='+'">
-            <img src="../assets/images/good.jpg" alt="节约" v-else>
+            <Icon name="nothing" class="icon"/>
         </div>
     </layout>
 </template>
@@ -132,14 +131,15 @@
 
     .nothing-wrapper {
         text-align: center;
-
         .nothing {
             display: block;
             padding: 16px;
         }
 
-        img {
-            width: 60%;
+        .icon {
+            width: 60px;
+            height: 60px;
+            color: rgba(0, 0, 0, 0.6);
         }
     }
 
