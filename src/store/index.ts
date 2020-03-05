@@ -36,7 +36,16 @@ const store = new Vuex.Store({
         },
 
         fetchTag(state) {
-            state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+            if (!window.localStorage.getItem('tagList')) {
+                let names = ['餐饮', '交通', '娱乐'];
+                for (let i = 0; i < 3; i++) {
+                    let id = createId();
+                    state.tagList.push({id: id.toString(), name: names[i]});
+                    store.commit('saveTags');
+                }
+            }
+            state.tagList = JSON.parse(window.localStorage.getItem('tagList')
+                || '[]');
         },
         createTag(state, name: string) {
             // data --- [{id: xxx, name: xxx}]
@@ -110,6 +119,10 @@ const store = new Vuex.Store({
             if (dateType === 'month') {
                 if (operationType === '+') {
                     if (state.month) {
+                        if (state.month === dayjs().month() + 1) {
+                            openTip(`还没有到${state.month + 1}月哦`, 'warning');
+                            return;
+                        }
                         state.month = state.month < 12 ? state.month + 1 : 1;
                     }
                 } else {

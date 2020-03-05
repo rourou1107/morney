@@ -6,6 +6,7 @@ function openTip(message: string, type: 'success' | 'warning' | 'info' | 'error'
         type: type,
         center: true,
         offset: 200,
+        duration: 1000,
         customClass: 'message'
     });
 }
