@@ -21,9 +21,6 @@
     import GroupListHelper from '@/mixins/groupListHelper';
     import dayjs from 'dayjs';
 
-    var echarts = require('echarts');
-
-    const dom = window.document.getElementById('dom-id');
     @Component({
         components: {MyDate, Layout, Tabs}
     })
@@ -64,7 +61,7 @@
                 return arr;
             }
 
-            let myChart = echarts.init(document.getElementById('dom-id'));
+            let myChart = this.$echarts.init(document.getElementById('dom-id'));
             let option = {
                 xAxis: {
                     data: getDayArr(),

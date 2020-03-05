@@ -7,6 +7,8 @@ import Nav from '@/components/Nav.vue';
 import Icon from '@/components/Icon.vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import Echart from 'echarts';
+Vue.prototype.$echarts = Echart;
 
 Vue.config.productionTip = false;
 Vue.component('Nav', Nav);
